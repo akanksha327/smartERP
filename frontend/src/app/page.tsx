@@ -2,6 +2,9 @@
 
 import { AppLayout } from '@/components/erp/layout/AppLayout';
 import { useERPStore } from '@/store/useERPStore';
+import { useAuth } from '@/context/AuthContext';
+import { LoginView } from '@/components/erp/shared/LoginView';
+import { Loader2 } from 'lucide-react';
 import { Dashboard } from '@/components/erp/modules/Dashboard';
 import { LedgerModule } from '@/components/erp/modules/LedgerModule';
 import { CustomerModule } from '@/components/erp/modules/CustomerModule';
@@ -109,6 +112,21 @@ function KeyboardShortcuts() {
 }
 
 export default function Home() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#080A10] text-white">
+        <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
+        <p className="text-xs text-gray-400">Loading SmartERP...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginView />;
+  }
+
   return (
     <AppLayout>
       <KeyboardShortcuts />

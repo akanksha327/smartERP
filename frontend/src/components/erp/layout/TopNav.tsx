@@ -2,6 +2,7 @@
 
 import { useERPStore } from '@/store/useERPStore';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/AuthContext';
 import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
@@ -54,6 +55,7 @@ export function TopNav() {
     setCompanySelectorOpen,
     setCommandPaletteOpen,
   } = useERPStore();
+  const { user, logout } = useAuth();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -160,12 +162,21 @@ export function TopNav() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="flex items-center gap-2 h-8 px-2">
             <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
-              <User size={14} className="text-primary" />
+              {user?.photoURL ? (
+                <img src={user.photoURL} alt="Avatar" className="w-7 h-7 rounded-full object-cover" />
+              ) : (
+                <User size={14} className="text-primary" />
+              )}
             </div>
-            <span className="hidden sm:inline text-sm">Admin</span>
+            <span className="hidden sm:inline text-sm truncate max-w-[100px]">
+              {user?.displayName || user?.email?.split('@')[0] || 'User'}
+            </span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
+          <div className="px-2 py-1.5 text-xs text-muted-foreground border-b border-border/50 truncate">
+            {user?.email}
+          </div>
           <DropdownMenuItem>
             <User size={14} />
             <span>Profile</span>
@@ -175,7 +186,7 @@ export function TopNav() {
             <span>Preferences</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-destructive">
+          <DropdownMenuItem className="text-destructive cursor-pointer" onClick={() => logout()}>
             <LogOut size={14} />
             <span>Logout</span>
           </DropdownMenuItem>
