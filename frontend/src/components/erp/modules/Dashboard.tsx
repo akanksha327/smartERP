@@ -114,8 +114,8 @@ export function Dashboard() {
                 <AreaChart data={monthlyRevenue} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2563EB" stopOpacity={0.15} />
-                      <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#850E24" stopOpacity={0.15} />
+                      <stop offset="95%" stopColor="#850E24" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#DC2626" stopOpacity={0.1} />
@@ -135,7 +135,7 @@ export function Dashboard() {
                     }}
                     formatter={(value: number) => [formatCurrency(value)]}
                   />
-                  <Area type="monotone" dataKey="revenue" stroke="#2563EB" fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={2} name="Revenue" />
+                  <Area type="monotone" dataKey="revenue" stroke="#850E24" fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={2} name="Revenue" />
                   <Area type="monotone" dataKey="expenses" stroke="#DC2626" fillOpacity={1} fill="url(#colorExpenses)" strokeWidth={2} name="Expenses" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -174,7 +174,7 @@ export function Dashboard() {
                     }}
                     formatter={(value: number) => [formatCurrency(value), 'Revenue']}
                   />
-                  <Bar dataKey="revenue" fill="#2563EB" radius={[0, 4, 4, 0]} barSize={20} />
+                  <Bar dataKey="revenue" fill="#850E24" radius={[0, 4, 4, 0]} barSize={20} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
